@@ -1,0 +1,1 @@
+export { apiEndpoint } from './envs';
