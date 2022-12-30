@@ -17,6 +17,11 @@ export function useRootStore() {
   return context;
 }
 
+export function useDictionaryStore() {
+  const { dictionaryStore } = useRootStore();
+  return dictionaryStore;
+}
+
 export function RootStoreProvider({
   children,
   hydrationData
