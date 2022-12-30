@@ -10,21 +10,21 @@ export default NextAuth({
       type: 'credentials',
       credentials: {},
       async authorize(credentials: {
-        email: string;
+        username: string;
         password: string;
       }): Promise<any> {
-        if (!credentials.email || !credentials.password) return null;
+        if (!credentials.username || !credentials.password) return null;
 
         const { data } = await axios.post(`${apiEndpoint}/auth/sign-in`, {
-          email: credentials.email,
+          username: credentials.username,
           password: credentials.password
         });
 
         if (!data) return null;
 
-        const accessToken = data.replace('accessToken: ', 'Bearer ');
+        const { accessToken, username, role } = data;
 
-        return { accessToken };
+        return { accessToken, username, role };
       }
     })
   ],
