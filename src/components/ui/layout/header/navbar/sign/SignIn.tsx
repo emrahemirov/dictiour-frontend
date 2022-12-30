@@ -1,9 +1,11 @@
 import { Button, Stack } from '@chakra-ui/react';
 import TextField from '@components/ui/common/TextField';
 import { Form, Formik } from 'formik';
+import { signIn } from 'next-auth/react';
+import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 
-const SignIn = () => {
+const SignIn = ({ closeModal }: { closeModal: () => void }) => {
   return (
     <Formik
       initialValues={{ username: '', password: '' }}
@@ -11,9 +13,21 @@ const SignIn = () => {
         username: Yup.string().required('Username required'),
         password: Yup.string().required('Password required')
       })}
-      onSubmit={(values, actions) => {
-        alert(JSON.stringify(values, null, 2));
+      onSubmit={async (values, actions) => {
+        signIn('credentials', {
+          username: values.username.trim(),
+          password: values.password.trim(),
+          redirect: false
+        }).then(({ ok }) => {
+          if (ok) {
+            toast('Giriş yapıldı', { type: 'success' });
+          } else {
+            toast('Girilen bilgileri kontrol edin', { type: 'error' });
+          }
+        });
+
         actions.resetForm();
+        closeModal();
       }}
     >
       {(formik) => (

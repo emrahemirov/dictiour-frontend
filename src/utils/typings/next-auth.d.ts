@@ -1,3 +1,4 @@
+import { UserRoles } from '@utils/enums';
 import NextAuth from 'next-auth';
 
 declare module 'next-auth' {
@@ -5,7 +6,7 @@ declare module 'next-auth' {
     user: {
       accessToken?: string;
       username?: string;
-      role?: number;
+      role?: UserRoles;
     };
   }
 }

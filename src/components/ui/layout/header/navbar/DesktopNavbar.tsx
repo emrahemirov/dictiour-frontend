@@ -1,4 +1,4 @@
-import { Flex } from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
 import NavbarLinks from './NavbarLinks';
 import Sign from './sign';
 
@@ -8,9 +8,9 @@ const DesktopNavbar = () => {
       <Flex gap={4} display={{ base: 'none', md: 'flex' }}>
         <NavbarLinks />
       </Flex>
-      <Flex gap={4} display={{ base: 'none', md: 'flex' }}>
+      <Box display={{ base: 'none', md: 'block' }}>
         <Sign />
-      </Flex>
+      </Box>
     </>
   );
 };

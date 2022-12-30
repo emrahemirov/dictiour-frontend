@@ -1,9 +1,11 @@
 import { Button, Stack } from '@chakra-ui/react';
 import TextField from '@components/ui/common/TextField';
+import { authService } from '@services/auth.service';
 import { Form, Formik } from 'formik';
+import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 
-const SignUp = () => {
+const SignUp = ({ openSignIn }: { openSignIn: () => void }) => {
   return (
     <Formik
       initialValues={{ username: '', password: '', passwordConfirm: '' }}
@@ -15,8 +17,16 @@ const SignUp = () => {
           .oneOf([Yup.ref('password'), null], 'Passwords must match')
       })}
       onSubmit={(values, actions) => {
-        alert(JSON.stringify(values, null, 2));
+        authService
+          .signUp(values)
+          .then(() => {
+            toast('Kayıt yapıldı', { type: 'success' });
+          })
+          .catch(({ response: { data } }) => {
+            toast(data.message, { type: 'error' });
+          });
         actions.resetForm();
+        openSignIn();
       }}
     >
       {(formik) => (

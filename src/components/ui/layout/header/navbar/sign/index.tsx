@@ -11,13 +11,21 @@ import {
   useDisclosure,
   Text
 } from '@chakra-ui/react';
+import { useSession } from 'next-auth/react';
 import { useState } from 'react';
 import SignIn from './SignIn';
+import SignOut from './SignOut';
 import SignUp from './SignUp';
 
 const Sign = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isSignInShown, setIsSignInShown] = useState(true);
+  const { status, data } = useSession();
+
+  const openSignIn = () => setIsSignInShown(true);
+
+  if (status === 'authenticated')
+    return <SignOut username={data.user.username} />;
 
   return (
     <>
@@ -35,7 +43,13 @@ const Sign = () => {
         <ModalContent maxW={'sm'}>
           <ModalHeader />
           <ModalCloseButton />
-          <ModalBody>{isSignInShown ? <SignIn /> : <SignUp />}</ModalBody>
+          <ModalBody>
+            {isSignInShown ? (
+              <SignIn closeModal={onClose} />
+            ) : (
+              <SignUp openSignIn={openSignIn} />
+            )}
+          </ModalBody>
 
           <ModalFooter>
             <Flex w={'full'} align={'center'} justify={'space-between'} gap={4}>

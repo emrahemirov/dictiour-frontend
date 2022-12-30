@@ -21,7 +21,11 @@ export default function App({
       <Head>
         <title>DICTIOUR</title>
       </Head>
-      <ToastContainer position={'top-left'} theme='colored' />
+      <ToastContainer
+        pauseOnFocusLoss={false}
+        position={'bottom-left'}
+        theme='colored'
+      />
       <ChakraProvider>
         <SessionProvider session={session}>
           <RootStoreProvider hydrationData={hydrationData}>
