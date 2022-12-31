@@ -1,9 +1,10 @@
 import { IconButton } from '@chakra-ui/react';
 import { useRootStore } from '@components/providers';
+import Add from '@components/ui/common/add';
 import Filter from '@components/ui/common/filter';
 import WordList from '@components/ui/common/word-list';
-import { UserMeaning } from '@models';
-import { queryStringService } from '@services';
+import { GlobalWord, UserMeaning } from '@models';
+import { queryStringService, userDictionary } from '@services';
 import { RootStoreHydration } from '@stores/root.store';
 import { apiEndpoint, pageLimit } from '@utils/constants';
 import { Languages } from '@utils/enums';
@@ -13,6 +14,7 @@ import { usePathname } from 'next/navigation';
 import { useRouter } from 'next/router';
 import type { GetServerSideProps } from 'next/types';
 import { HiChevronRight } from 'react-icons/hi';
+import { toast } from 'react-toastify';
 
 const UserMeanings = () => {
   const router = useRouter();
@@ -23,9 +25,24 @@ const UserMeanings = () => {
     dictionaryStore.setSelectedUserMeaning(item);
   };
 
+  const onAdd = async (item: GlobalWord) => {
+    await userDictionary
+      .addUserMeaning(dictionaryStore.selectedUserWord.word, item)
+      .then(() => {
+        toast('Added', { type: 'success' });
+      })
+      .catch(({ response: { data } }) => {
+        toast(data.message, { type: 'error' });
+      });
+
+    router.push(router.asPath);
+  };
+
   return (
     <>
-      <Filter filterType='userMeanings' />
+      <Filter filterType='userMeanings'>
+        <Add onAdd={onAdd} />
+      </Filter>
       <WordList
         wordKey='toWord'
         items={dictionaryStore.userMeanings}

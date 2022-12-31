@@ -11,7 +11,7 @@ const UserBar = () => {
 
   return (
     <Flex justify={'space-between'} gap={4}>
-      <SignOut username={data.user.username} />
+      <SignOut username={data?.user?.username} />
       <Bucket />
     </Flex>
   );

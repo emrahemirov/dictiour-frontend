@@ -1,6 +1,6 @@
 import { Button, Flex, Text } from '@chakra-ui/react';
 import { signOut } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 
 const SignOut = ({ username }: { username: string }) => {
@@ -13,11 +13,11 @@ const SignOut = ({ username }: { username: string }) => {
         onClick={() => {
           signOut({ redirect: false })
             .then(() => {
-              toast('Çıkış yapıldı', { type: 'success' });
+              toast('Success', { type: 'success' });
               router.push('/');
             })
             .catch((err) => {
-              toast('Çıkış yapılırken hata oluştu', { type: 'error' });
+              toast('Error happened while signing out', { type: 'error' });
             });
         }}
         w={'full'}

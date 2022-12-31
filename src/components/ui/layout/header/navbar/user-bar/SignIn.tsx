@@ -20,9 +20,9 @@ const SignIn = ({ closeModal }: { closeModal: () => void }) => {
           redirect: false
         }).then(({ ok }) => {
           if (ok) {
-            toast('Giriş yapıldı', { type: 'success' });
+            toast('Success', { type: 'success' });
           } else {
-            toast('Girilen bilgileri kontrol edin', { type: 'error' });
+            toast('Error happened while signing in', { type: 'error' });
           }
         });
 

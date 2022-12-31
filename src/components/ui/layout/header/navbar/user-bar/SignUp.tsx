@@ -20,7 +20,7 @@ const SignUp = ({ openSignIn }: { openSignIn: () => void }) => {
         authService
           .signUp(values)
           .then(() => {
-            toast('Kayıt yapıldı', { type: 'success' });
+            toast('Success', { type: 'success' });
           })
           .catch(({ response: { data } }) => {
             toast(data.message, { type: 'error' });

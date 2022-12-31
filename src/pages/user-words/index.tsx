@@ -1,19 +1,21 @@
 import { useRootStore } from '@components/providers';
-import { queryStringService } from '@services';
+import { queryStringService, userDictionary } from '@services';
 import { RootStoreHydration } from '@stores/root.store';
 import { apiEndpoint, pageLimit } from '@utils/constants';
 import { Languages } from '@utils/enums';
 import axios from 'axios';
-import { UserWord } from '@models';
+import { GlobalWord, UserWord } from '@models';
 import { getSession } from 'next-auth/react';
 import type { GetServerSideProps } from 'next/types';
 import Filter from '@components/ui/common/filter';
 import WordList from '@components/ui/common/word-list';
 import { observer } from 'mobx-react-lite';
-import { Box, Button, Flex, IconButton } from '@chakra-ui/react';
-import { HiChevronRight, HiPlus } from 'react-icons/hi';
+import { IconButton } from '@chakra-ui/react';
+import { HiChevronRight } from 'react-icons/hi';
 import { useRouter } from 'next/router';
 import { usePathname } from 'next/navigation';
+import Add from '@components/ui/common/add';
+import { toast } from 'react-toastify';
 
 const UserWords = () => {
   const router = useRouter();
@@ -24,13 +26,23 @@ const UserWords = () => {
     dictionaryStore.setSelectedUserWord(item);
   };
 
+  const onAdd = async (item: GlobalWord) => {
+    await userDictionary
+      .addUserWord(item)
+      .then(() => {
+        toast('Added', { type: 'success' });
+      })
+      .catch(({ response: { data } }) => {
+        toast(data.message, { type: 'error' });
+      });
+
+    router.push(router.asPath);
+  };
+
   return (
     <>
       <Filter filterType='userWords'>
-        <Button w={'fit-content'} gap={2} colorScheme={'green'}>
-          <Box as={HiPlus} />
-          Add
-        </Button>
+        <Add onAdd={onAdd} />
       </Filter>
 
       <WordList
