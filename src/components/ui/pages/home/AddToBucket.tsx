@@ -11,6 +11,7 @@ const AddToBucket = () => {
       onClick={() => {
         bucketStore.increaseBucketWord();
       }}
+      colorScheme={'teal'}
     >
       <Box as={MdAddShoppingCart} fontSize={'lg'} />
     </Button>

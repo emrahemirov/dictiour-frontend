@@ -1,7 +1,7 @@
 import { Box, Button, Flex, Stack, Text } from '@chakra-ui/react';
 import { useRootStore } from '@components/providers';
-import { BucketWord } from '@models';
 import { Languages } from '@utils/enums';
+import { BucketWord } from '@utils/types';
 import { observer } from 'mobx-react-lite';
 import { AiOutlineMinusCircle, AiOutlineDelete } from 'react-icons/ai';
 

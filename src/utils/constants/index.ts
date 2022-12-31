@@ -1,1 +1,1 @@
-export { apiEndpoint } from './envs';
+export { apiEndpoint, pageLimit } from './envs';

@@ -21,7 +21,7 @@ const WordDetail = ({ item }: { item: GlobalWord }) => {
   return (
     <Popover>
       <PopoverTrigger>
-        <Button w={'fit-content'}>
+        <Button w={'fit-content'} colorScheme={'teal'} variant={'outline'}>
           <Box as={HiOutlineInformationCircle} fontSize={'lg'} />
         </Button>
       </PopoverTrigger>

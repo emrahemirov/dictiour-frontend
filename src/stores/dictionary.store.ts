@@ -3,10 +3,10 @@ import { makeAutoObservable, runInAction } from 'mobx';
 import { RootStore } from './root.store';
 
 export interface DictionaryHydration {
-  globalWords: Array<GlobalWord>;
-  userWords: Array<UserWord>;
-  userMeanings: Array<UserMeaning>;
-  userExamples: Array<UserExample>;
+  globalWords?: Array<GlobalWord>;
+  userWords?: Array<UserWord>;
+  userMeanings?: Array<UserMeaning>;
+  userExamples?: Array<UserExample>;
 }
 
 export class DictionaryStore {

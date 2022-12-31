@@ -1,4 +1,4 @@
-import { BucketWord, GlobalWord } from '@models';
+import { BucketWord } from '@utils/types';
 import { makeAutoObservable } from 'mobx';
 import { RootStore } from './root.store';
 

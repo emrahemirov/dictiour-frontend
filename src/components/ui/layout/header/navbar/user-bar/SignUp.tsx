@@ -1,6 +1,6 @@
 import { Button, Stack } from '@chakra-ui/react';
 import TextField from '@components/ui/common/TextField';
-import { authService } from '@services/auth.service';
+import { authService } from '@services';
 import { Form, Formik } from 'formik';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
