@@ -1,8 +1,11 @@
 import { Button, Flex, Text } from '@chakra-ui/react';
 import { signOut } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 
 const SignOut = ({ username }: { username: string }) => {
+  const router = useRouter();
+
   return (
     <Flex align={'center'} gap={4}>
       <Text>{username}</Text>
@@ -11,6 +14,7 @@ const SignOut = ({ username }: { username: string }) => {
           signOut({ redirect: false })
             .then(() => {
               toast('Çıkış yapıldı', { type: 'success' });
+              router.push('/');
             })
             .catch((err) => {
               toast('Çıkış yapılırken hata oluştu', { type: 'error' });

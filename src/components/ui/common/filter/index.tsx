@@ -4,13 +4,7 @@ import LanguageSelect from './LanguageSelect';
 import Pagination from './Pagination';
 import Search from './Search';
 
-const Filter = ({
-  filterType,
-  pushTo
-}: {
-  filterType: FilterTypes;
-  pushTo: string;
-}) => {
+const Filter = ({ filterType }: { filterType: FilterTypes }) => {
   return (
     <Flex
       borderRadius={6}
@@ -21,9 +15,9 @@ const Filter = ({
       justify={'space-around'}
       flexWrap={'wrap'}
     >
-      <Search filterType={filterType} pushTo={pushTo} />
-      <LanguageSelect filterType={filterType} pushTo={pushTo} />
-      <Pagination filterType={filterType} pushTo={pushTo} />
+      <Search filterType={filterType} />
+      <LanguageSelect filterType={filterType} />
+      <Pagination filterType={filterType} />
     </Flex>
   );
 };

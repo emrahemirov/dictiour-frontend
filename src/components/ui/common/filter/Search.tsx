@@ -4,21 +4,17 @@ import { FilterTypes } from '@utils/types';
 import { useRouter } from 'next/router';
 import { useRef } from 'react';
 import { AiOutlineClose, AiOutlineSearch } from 'react-icons/ai';
+import { usePathname } from 'next/navigation';
 
-const Search = ({
-  filterType,
-  pushTo
-}: {
-  filterType: FilterTypes;
-  pushTo: string;
-}) => {
+const Search = ({ filterType }: { filterType: FilterTypes }) => {
   const router = useRouter();
   const inputRef = useRef(null);
   const { filterStore } = useRootStore();
+  const pathname = usePathname();
 
   const pusToSearch = () =>
     router.push({
-      pathname: pushTo,
+      pathname: pathname,
       query: {
         ...router.query,
         search: filterStore.search[filterType],

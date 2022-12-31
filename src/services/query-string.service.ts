@@ -1,14 +1,26 @@
-import { apiEndpoint } from '@utils/constants';
 import { Languages } from '@utils/enums';
-import axios from 'axios';
 
 class QueryStringService {
-  getString(search: string, language: Languages, page: string) {
+  getString({
+    search,
+    language,
+    page,
+    userWordId,
+    userMeaningId
+  }: {
+    search?: string;
+    language?: Languages;
+    page?: string;
+    userWordId?: string;
+    userMeaningId?: string;
+  }) {
     let string = '?';
 
     if (search) string += `search=${search}&`;
     if (language) string += `language=${language}&`;
-    page ? (string += `page=${page}&`) : (string += `page=1&`);
+    if (page) string += `page=${page}&`;
+    if (userWordId) string += `userWordId=${userWordId}&`;
+    if (userMeaningId) string += `userMeaningId=${userMeaningId}&`;
 
     return string;
   }

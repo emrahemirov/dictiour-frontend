@@ -4,20 +4,16 @@ import { FilterTypes } from '@utils/types';
 import { observer } from 'mobx-react-lite';
 import { useRouter } from 'next/router';
 import { HiChevronLeft, HiChevronRight } from 'react-icons/hi';
+import { usePathname } from 'next/navigation';
 
-const Pagination = ({
-  filterType,
-  pushTo
-}: {
-  filterType: FilterTypes;
-  pushTo: string;
-}) => {
+const Pagination = ({ filterType }: { filterType: FilterTypes }) => {
   const router = useRouter();
+  const pathname = usePathname();
   const { filterStore } = useRootStore();
 
   const pusToPage = () =>
     router.push({
-      pathname: pushTo,
+      pathname: pathname,
       query: { ...router.query, page: filterStore.page[filterType] }
     });
 

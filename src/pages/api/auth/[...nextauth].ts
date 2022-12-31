@@ -22,7 +22,9 @@ export default NextAuth({
 
         if (!data) return null;
 
-        const { accessToken, username, role } = data;
+        let { accessToken, username, role } = data;
+
+        accessToken = `Bearer ${accessToken}`;
 
         return { accessToken, username, role };
       }

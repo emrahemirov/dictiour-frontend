@@ -4,20 +4,16 @@ import { Languages } from '@utils/enums';
 import { FilterTypes } from '@utils/types';
 import { useRouter } from 'next/router';
 import { HiChevronDown } from 'react-icons/hi';
+import { usePathname } from 'next/navigation';
 
-const LanguageSelect = ({
-  filterType,
-  pushTo
-}: {
-  filterType: FilterTypes;
-  pushTo: string;
-}) => {
+const LanguageSelect = ({ filterType }: { filterType: FilterTypes }) => {
   const router = useRouter();
+  const pathname = usePathname();
   const { filterStore } = useRootStore();
 
   const pusToLanguage = () =>
     router.push({
-      pathname: pushTo,
+      pathname: pathname,
       query: {
         ...router.query,
         language: filterStore.language[filterType],

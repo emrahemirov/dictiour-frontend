@@ -20,7 +20,7 @@ const Home = () => {
 
   return (
     <>
-      <Filter filterType='globalWords' pushTo='/' />
+      <Filter filterType='globalWords' />
       <GlobalWordList
         items={dictionaryStore.globalWords}
         onItemMouseMove={onItemMouseMove}
@@ -35,13 +35,13 @@ export default Home;
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const session: any = await getSession(ctx);
 
-  const { page, language, search } = ctx.query;
+  const { page = 1, language = null, search = null } = ctx.query;
 
-  const queryString = queryStringService.getString(
-    search as string,
-    language as unknown as Languages,
-    page as string
-  );
+  const queryString = queryStringService.getString({
+    search: search as string,
+    language: language as unknown as Languages,
+    page: page as string
+  });
 
   const { data: globalWords } = await axios.get(
     `${apiEndpoint}/global-words${queryString}`
