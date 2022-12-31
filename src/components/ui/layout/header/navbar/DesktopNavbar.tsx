@@ -1,6 +1,6 @@
 import { Box, Flex } from '@chakra-ui/react';
 import NavbarLinks from './NavbarLinks';
-import Sign from './sign';
+import UserBar from './user-bar';
 
 const DesktopNavbar = () => {
   return (
@@ -9,7 +9,7 @@ const DesktopNavbar = () => {
         <NavbarLinks />
       </Flex>
       <Box display={{ base: 'none', md: 'block' }}>
-        <Sign />
+        <UserBar />
       </Box>
     </>
   );

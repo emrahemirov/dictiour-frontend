@@ -11,21 +11,15 @@ import {
   useDisclosure,
   Text
 } from '@chakra-ui/react';
-import { useSession } from 'next-auth/react';
 import { useState } from 'react';
 import SignIn from './SignIn';
-import SignOut from './SignOut';
 import SignUp from './SignUp';
 
 const Sign = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isSignInShown, setIsSignInShown] = useState(true);
-  const { status, data } = useSession();
 
   const openSignIn = () => setIsSignInShown(true);
-
-  if (status === 'authenticated')
-    return <SignOut username={data.user.username} />;
 
   return (
     <>

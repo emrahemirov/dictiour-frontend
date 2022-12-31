@@ -29,20 +29,20 @@ export class DictionaryStore {
     makeAutoObservable(this);
   }
 
-  setSelectedGlobalWord(index: number) {
-    this.selectedGlobalWord = this.globalWords?.[index];
+  setSelectedGlobalWord(item: GlobalWord) {
+    this.selectedGlobalWord = item;
   }
 
-  setSelectedUserWord(index: number) {
-    this.selectedUserWord = this.userWords?.[index];
+  setSelectedUserWord(item: UserWord) {
+    this.selectedUserWord = item;
   }
 
-  setSelectedUserMeaning(index: number) {
-    this.selectedUserMeaning = this.userMeanings?.[index];
+  setSelectedUserMeaning(item: UserMeaning) {
+    this.selectedUserMeaning = item;
   }
 
-  setSelectedUserExample(index: number) {
-    this.selectedUserExample = this.userExamples?.[index];
+  setSelectedUserExample(item: UserExample) {
+    this.selectedUserExample = item;
   }
 
   hydrate(data?: DictionaryHydration) {

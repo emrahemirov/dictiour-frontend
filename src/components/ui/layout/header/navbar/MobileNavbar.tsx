@@ -13,7 +13,7 @@ import {
 import { useRef } from 'react';
 import { AiOutlineMenu } from 'react-icons/ai';
 import NavbarLinks from './NavbarLinks';
-import Sign from './sign';
+import UserBar from './user-bar';
 
 const DrawerExample = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -44,7 +44,7 @@ const DrawerExample = () => {
             <Stack my={12}>
               <NavbarLinks />
             </Stack>
-            <Sign />
+            <UserBar />
           </DrawerBody>
 
           <DrawerFooter />

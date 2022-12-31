@@ -1,6 +1,7 @@
-import { Button } from '@chakra-ui/react';
-import { useDictionaryStore } from '@components/providers/RootStoreProvider';
-import GlobalWordList from '@components/ui/common/global-word-list';
+import { useRootStore } from '@components/providers/RootStoreProvider';
+import GlobalWordList from '@components/ui/common/GlobalWordList';
+import AddToBucket from '@components/ui/pages/home/AddToBucket';
+import { GlobalWord } from '@models';
 import { RootStoreHydration } from '@stores/root.store';
 import { apiEndpoint } from '@utils/constants';
 import axios from 'axios';
@@ -8,9 +9,19 @@ import { getSession } from 'next-auth/react';
 import type { GetServerSideProps } from 'next/types';
 
 const Home = () => {
-  const dictionaryStore = useDictionaryStore();
+  const { dictionaryStore } = useRootStore();
 
-  return <GlobalWordList items={dictionaryStore.globalWords} />;
+  const onItemMouseMove = (item: GlobalWord) => {
+    dictionaryStore.setSelectedGlobalWord(item);
+  };
+
+  return (
+    <GlobalWordList
+      items={dictionaryStore.globalWords}
+      onItemMouseMove={onItemMouseMove}
+      listItemChildren={<AddToBucket />}
+    />
+  );
 };
 
 export default Home;

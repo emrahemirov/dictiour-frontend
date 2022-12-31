@@ -1,25 +1,22 @@
-import { Box, Flex, Text } from '@chakra-ui/react';
+import { Flex, Text } from '@chakra-ui/react';
 import { ReactNode } from 'react';
 import { GlobalWord } from '@models';
-import WordDetail from '../WordDetail';
+import WordDetail from './WordDetail';
 import { Languages } from '@utils/enums';
-import { useDictionaryStore } from '@components/providers/RootStoreProvider';
 
-const GlobalWordItem = ({
-  index,
+const WordItem = ({
+  onItemMouseMove,
   item,
   children
 }: {
-  index: number;
+  onItemMouseMove: (item: any) => void;
   item: GlobalWord;
   children?: ReactNode;
 }) => {
-  const dictionaryStore = useDictionaryStore();
-
   return (
     <Flex
-      onClick={() => {
-        dictionaryStore.setSelectedGlobalWord(index);
+      onMouseMove={() => {
+        onItemMouseMove(item);
       }}
       w={{ base: 'full', md: '45%' }}
       flexDirection={{ base: 'column', md: 'row' }}
@@ -46,4 +43,4 @@ const GlobalWordItem = ({
   );
 };
 
-export default GlobalWordItem;
+export default WordItem;
