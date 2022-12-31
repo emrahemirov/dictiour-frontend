@@ -11,7 +11,7 @@ const LanguageSelect = ({ filterType }: { filterType: FilterTypes }) => {
   const pathname = usePathname();
   const { filterStore } = useRootStore();
 
-  const pusToLanguage = () =>
+  const pushToLanguage = () =>
     router.push({
       pathname: pathname,
       query: {
@@ -36,7 +36,7 @@ const LanguageSelect = ({ filterType }: { filterType: FilterTypes }) => {
           onClick={() => {
             filterStore.resetLanguage(filterType);
             filterStore.resetPage(filterType);
-            pusToLanguage();
+            pushToLanguage();
           }}
         >
           All
@@ -45,7 +45,7 @@ const LanguageSelect = ({ filterType }: { filterType: FilterTypes }) => {
           onClick={() => {
             filterStore.setLanguage(filterType, Languages.TR);
             filterStore.resetPage(filterType);
-            pusToLanguage();
+            pushToLanguage();
           }}
         >
           Turkish
@@ -54,7 +54,7 @@ const LanguageSelect = ({ filterType }: { filterType: FilterTypes }) => {
           onClick={() => {
             filterStore.setLanguage(filterType, Languages.EN);
             filterStore.resetPage(filterType);
-            pusToLanguage();
+            pushToLanguage();
           }}
         >
           English

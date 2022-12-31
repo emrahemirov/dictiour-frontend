@@ -8,13 +8,14 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  Stack,
   useDisclosure
 } from '@chakra-ui/react';
-import { GlobalWord } from '@models';
 import { HiPlus } from 'react-icons/hi';
+import AddCustom from './AddCustom';
 import AddList from './AddList';
 
-const Add = ({ onAdd }: { onAdd: (item: GlobalWord) => void }) => {
+const Add = ({ onAdd }: { onAdd: (item: any) => void }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -30,7 +31,10 @@ const Add = ({ onAdd }: { onAdd: (item: GlobalWord) => void }) => {
           <ModalHeader />
           <ModalCloseButton />
           <ModalBody maxH={320} overflowX={'hidden'} overflowY={'auto'}>
-            <AddList onAdd={onAdd} />
+            <Stack>
+              <AddCustom onAdd={onAdd} />
+              <AddList onAdd={onAdd} />
+            </Stack>
           </ModalBody>
 
           <ModalFooter />
