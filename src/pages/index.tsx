@@ -2,11 +2,12 @@ import { useRootStore } from '@components/providers/RootStoreProvider';
 import Filter from '@components/ui/common/filter';
 import WordList from '@components/ui/common/word-list';
 import AddToBucket from '@components/ui/pages/home/AddToBucket';
+import ReportWord from '@components/ui/pages/home/ReportWord';
 import { GlobalWord } from '@models';
 import { queryStringService } from '@services';
 import { RootStoreHydration } from '@stores/root.store';
 import { apiEndpoint, pageLimit } from '@utils/constants';
-import { Languages } from '@utils/enums';
+import { Languages, UserRoles } from '@utils/enums';
 import axios from 'axios';
 import { getSession } from 'next-auth/react';
 import type { GetServerSideProps } from 'next/types';
@@ -25,7 +26,12 @@ const Home = () => {
         wordKey='globalWord'
         items={dictionaryStore.globalWords}
         onItemMouseMove={onItemMouseMove}
-        listItemChildren={<AddToBucket />}
+        listItemChildren={
+          <>
+            <AddToBucket />
+            <ReportWord />
+          </>
+        }
       />
     </>
   );
@@ -34,7 +40,7 @@ const Home = () => {
 export default Home;
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const session: any = await getSession(ctx);
+  const session = await getSession(ctx);
 
   const { page = 1, language = null, search = null } = ctx.query;
 

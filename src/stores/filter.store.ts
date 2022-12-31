@@ -17,7 +17,8 @@ export class FilterStore {
     globalWords: 1,
     userWords: 1,
     userMeanings: 1,
-    userExamples: 1
+    userExamples: 1,
+    reportedWords: 1
   };
 
   language: { [key: string]: null | Languages } = {
@@ -38,7 +39,8 @@ export class FilterStore {
     globalWords: false,
     userWords: false,
     userMeanings: false,
-    userExamples: false
+    userExamples: false,
+    reportedWords: false
   };
 
   constructor(root: RootStore) {

@@ -2,10 +2,13 @@ import { Button, Stack } from '@chakra-ui/react';
 import TextField from '@components/ui/common/TextField';
 import { Form, Formik } from 'formik';
 import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 
 const SignIn = ({ closeModal }: { closeModal: () => void }) => {
+  const router = useRouter();
+
   return (
     <Formik
       initialValues={{ username: '', password: '' }}
@@ -21,6 +24,7 @@ const SignIn = ({ closeModal }: { closeModal: () => void }) => {
         }).then(({ ok }) => {
           if (ok) {
             toast('Success', { type: 'success' });
+            router.push('/');
           } else {
             toast('Error happened while signing in', { type: 'error' });
           }

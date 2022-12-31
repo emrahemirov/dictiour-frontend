@@ -1,12 +1,11 @@
 import { Flex, IconButton, Text } from '@chakra-ui/react';
 import { useRootStore } from '@components/providers';
-import { FilterTypes } from '@utils/types';
 import { observer } from 'mobx-react-lite';
 import { useRouter } from 'next/router';
 import { HiChevronLeft, HiChevronRight } from 'react-icons/hi';
 import { usePathname } from 'next/navigation';
 
-const Pagination = ({ filterType }: { filterType: FilterTypes }) => {
+const PaginateReports = () => {
   const router = useRouter();
   const pathname = usePathname();
   const { filterStore } = useRootStore();
@@ -14,14 +13,14 @@ const Pagination = ({ filterType }: { filterType: FilterTypes }) => {
   const pushToPage = () =>
     router.push({
       pathname: pathname,
-      query: { ...router.query, page: filterStore.page[filterType] }
+      query: { ...router.query, page: filterStore.page.reportedWords }
     });
 
   return (
-    <Flex gap={2} align={'center'}>
+    <Flex mt={4} ml={'auto'} gap={2} align={'center'}>
       <IconButton
         onClick={() => {
-          filterStore.prevPage(filterType);
+          filterStore.prevPage('reportedWords');
           pushToPage();
         }}
         fontSize={'lg'}
@@ -30,14 +29,14 @@ const Pagination = ({ filterType }: { filterType: FilterTypes }) => {
         icon={<HiChevronLeft />}
       />
       <Text textAlign={'center'} minW={8}>
-        {filterStore.page[filterType]}
+        {filterStore.page.reportedWords}
       </Text>
       <IconButton
         onClick={() => {
-          filterStore.nextPage(filterType);
+          filterStore.nextPage('reportedWords');
           pushToPage();
         }}
-        disabled={filterStore.isLastData[filterType]}
+        disabled={filterStore.isLastData.reportedWords}
         fontSize={'lg'}
         colorScheme={'teal'}
         aria-label='previous'
@@ -47,4 +46,4 @@ const Pagination = ({ filterType }: { filterType: FilterTypes }) => {
   );
 };
 
-export default observer(Pagination);
+export default observer(PaginateReports);
