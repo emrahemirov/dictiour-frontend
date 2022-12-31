@@ -47,5 +47,8 @@ export class DictionaryStore {
 
   hydrate(data?: DictionaryHydration) {
     if (data.globalWords) this.globalWords = data.globalWords;
+    if (data.userWords) this.userWords = data.userWords;
+    if (data.userMeanings) this.userMeanings = data.userMeanings;
+    if (data.userExamples) this.userExamples = data.userExamples;
   }
 }

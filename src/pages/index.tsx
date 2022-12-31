@@ -1,6 +1,6 @@
 import { useRootStore } from '@components/providers/RootStoreProvider';
 import Filter from '@components/ui/common/filter';
-import GlobalWordList from '@components/ui/common/GlobalWordList';
+import WordList from '@components/ui/common/word-list';
 import AddToBucket from '@components/ui/pages/home/AddToBucket';
 import { GlobalWord } from '@models';
 import { queryStringService } from '@services';
@@ -21,7 +21,8 @@ const Home = () => {
   return (
     <>
       <Filter filterType='globalWords' />
-      <GlobalWordList
+      <WordList
+        wordKey='globalWord'
         items={dictionaryStore.globalWords}
         onItemMouseMove={onItemMouseMove}
         listItemChildren={<AddToBucket />}

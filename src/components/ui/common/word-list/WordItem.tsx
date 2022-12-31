@@ -1,18 +1,22 @@
 import { Flex, Text } from '@chakra-ui/react';
 import { ReactNode } from 'react';
-import { GlobalWord } from '@models';
+import { GlobalWord, UserExample, UserMeaning, UserWord } from '@models';
 import WordDetail from './WordDetail';
 import { Languages } from '@utils/enums';
 
 const WordItem = ({
+  wordKey,
   onItemMouseMove,
   item,
   children
 }: {
+  wordKey: 'word' | 'toWord' | 'exampleWord' | 'globalWord';
   onItemMouseMove: (item: any) => void;
-  item: GlobalWord;
+  item: GlobalWord | UserWord | UserMeaning | UserExample;
   children?: ReactNode;
 }) => {
+  const wordToRender = wordKey === 'globalWord' ? item : item[wordKey];
+
   return (
     <Flex
       onMouseMove={() => {
@@ -32,11 +36,11 @@ const WordItem = ({
         justify='space-around'
         align={'center'}
       >
-        <Text>{item.text}</Text>
-        <Text>{Languages[item.language]}</Text>
+        <Text>{wordToRender.text}</Text>
+        <Text>{Languages[wordToRender.language]}</Text>
       </Flex>
       <Flex justify={'center'} gap={2}>
-        <WordDetail item={item} />
+        <WordDetail item={wordToRender} />
         {children}
       </Flex>
     </Flex>

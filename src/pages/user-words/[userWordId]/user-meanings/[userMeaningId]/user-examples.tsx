@@ -1,3 +1,7 @@
+import { useRootStore } from '@components/providers';
+import Filter from '@components/ui/common/filter';
+import WordList from '@components/ui/common/word-list';
+import { UserExample } from '@models';
 import { queryStringService } from '@services';
 import { RootStoreHydration } from '@stores/root.store';
 import { apiEndpoint, pageLimit } from '@utils/constants';
@@ -7,7 +11,22 @@ import { getSession } from 'next-auth/react';
 import type { GetServerSideProps } from 'next/types';
 
 const UserExamples = () => {
-  return <div>UserExamples</div>;
+  const { dictionaryStore } = useRootStore();
+
+  const onItemMouseMove = (item: UserExample) => {
+    dictionaryStore.setSelectedUserExample(item);
+  };
+
+  return (
+    <>
+      <Filter filterType='userExamples' />
+      <WordList
+        wordKey='exampleWord'
+        items={dictionaryStore.userExamples}
+        onItemMouseMove={onItemMouseMove}
+      />
+    </>
+  );
 };
 
 export default UserExamples;
@@ -27,7 +46,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   });
 
   const { data: userExamples } = await axios.get(
-    `${apiEndpoint}/user-examples${queryString}`
+    `${apiEndpoint}/user-examples${queryString}`,
+    { headers: { Authorization: session.user.accessToken } }
   );
 
   let isLastData = false;
