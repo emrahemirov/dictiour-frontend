@@ -14,28 +14,23 @@ class UserDictionary {
     );
   }
 
-  addUserMeaning(fromWord: GlobalWord, toWord: GlobalWord) {
+  addUserMeaning(fromWordId: string, toWord: GlobalWord) {
     return axios.post(
       `${apiEndpoint}/user-meanings`,
       {
-        fromWord: { text: fromWord.text, language: fromWord.language },
-        toWord: { text: toWord.text, language: toWord.language }
+        toWord: { text: toWord.text, language: toWord.language },
+        fromWordId
       },
       { headers: { Authorization: getAuthToken() } }
     );
   }
 
-  addUserExample(
-    fromWord: GlobalWord,
-    toWord: GlobalWord,
-    example: GlobalWord
-  ) {
+  addUserExample(meaningWordId: string, example: GlobalWord) {
     return axios.post(
       `${apiEndpoint}/user-examples`,
       {
-        fromWord: { text: fromWord.text, language: fromWord.language },
-        toWord: { text: toWord.text, language: toWord.language },
-        example: { text: example.text, language: example.language }
+        example: { text: example.text, language: example.language },
+        meaningWordId
       },
       { headers: { Authorization: getAuthToken() } }
     );

@@ -10,7 +10,7 @@ import { apiEndpoint, pageLimit } from '@utils/constants';
 import { Languages } from '@utils/enums';
 import axios from 'axios';
 import { getSession } from 'next-auth/react';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/router';
 import type { GetServerSideProps } from 'next/types';
 import { HiChevronRight } from 'react-icons/hi';
@@ -19,15 +19,13 @@ import { toast } from 'react-toastify';
 const UserMeanings = () => {
   const router = useRouter();
   const pathname = usePathname();
-  const { dictionaryStore } = useRootStore();
+  const { get } = useSearchParams();
 
-  const onItemMouseMove = (item: UserMeaning) => {
-    dictionaryStore.setSelectedUserMeaning(item);
-  };
+  const { dictionaryStore } = useRootStore();
 
   const onAdd = async (item: GlobalWord) => {
     await userDictionary
-      .addUserMeaning(dictionaryStore.selectedUserWord.word, item)
+      .addUserMeaning(get('userWordId'), item)
       .then(() => {
         toast('Added', { type: 'success' });
       })
@@ -46,12 +44,11 @@ const UserMeanings = () => {
       <WordList
         wordKey='toWord'
         items={dictionaryStore.userMeanings}
-        onItemMouseMove={onItemMouseMove}
-        listItemChildren={
+        listItemChildren={(item: UserMeaning) => (
           <IconButton
             onClick={() => {
               router.push({
-                pathname: `${pathname}/${dictionaryStore.selectedUserMeaning.id}/user-examples`,
+                pathname: `${pathname}/${item.id}/user-examples`,
                 query: router.query
               });
             }}
@@ -60,7 +57,7 @@ const UserMeanings = () => {
             fontSize={'lg'}
             icon={<HiChevronRight />}
           />
-        }
+        )}
       />
     </>
   );

@@ -20,43 +20,14 @@ export class DictionaryStore {
   root: RootStore;
 
   globalWords: Array<GlobalWord> = null;
-  selectedGlobalWord: GlobalWord = null;
-
   userWords: Array<UserWord> = null;
-  selectedUserWord: UserWord = null;
-
   userMeanings: Array<UserMeaning> = null;
-  selectedUserMeaning: UserMeaning = null;
-
   userExamples: Array<UserExample> = null;
-  selectedUserExample: UserExample = null;
-
   reportedWords: Array<ReportedWord> = null;
-  selectedReportedWord: ReportedWord = null;
 
   constructor(root: RootStore) {
     this.root = root;
     makeAutoObservable(this);
-  }
-
-  setSelectedGlobalWord(item: GlobalWord) {
-    this.selectedGlobalWord = item;
-  }
-
-  setSelectedUserWord(item: UserWord) {
-    this.selectedUserWord = item;
-  }
-
-  setSelectedUserMeaning(item: UserMeaning) {
-    this.selectedUserMeaning = item;
-  }
-
-  setSelectedUserExample(item: UserExample) {
-    this.selectedUserExample = item;
-  }
-
-  setSelectedReportedWord(item: ReportedWord) {
-    this.selectedReportedWord = item;
   }
 
   hydrate(data?: DictionaryHydration) {

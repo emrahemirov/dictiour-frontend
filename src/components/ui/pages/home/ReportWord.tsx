@@ -1,13 +1,11 @@
 import { IconButton } from '@chakra-ui/react';
-import { useRootStore } from '@components/providers';
+import { GlobalWord } from '@models';
 import { reportService } from '@services';
 import { MdReportProblem } from 'react-icons/md';
 
-const ReportWord = () => {
-  const { dictionaryStore } = useRootStore();
-
+const ReportWord = ({ item }: { item: GlobalWord }) => {
   const handleReportWord = () => {
-    reportService.addReport(dictionaryStore.selectedGlobalWord.id);
+    reportService.addReport(item.id);
   };
 
   return (

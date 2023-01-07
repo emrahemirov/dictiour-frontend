@@ -13,14 +13,11 @@ const AddItem = ({
   item: BucketWord;
   onAdd: (item: GlobalWord) => void;
 }) => {
-  const { dictionaryStore, bucketStore } = useRootStore();
+  const { bucketStore } = useRootStore();
 
   return (
     <Stack
       borderRadius={6}
-      onMouseMove={() => {
-        dictionaryStore.setSelectedGlobalWord(item.word);
-      }}
       p={2}
       shadow={'md'}
       align={'center'}
@@ -41,7 +38,7 @@ const AddItem = ({
           flex={1}
           onClick={() => {
             onAdd(item.word);
-            bucketStore.decreaseBucketWord();
+            bucketStore.decreaseBucketWord(item.word);
           }}
           colorScheme={'green'}
         >

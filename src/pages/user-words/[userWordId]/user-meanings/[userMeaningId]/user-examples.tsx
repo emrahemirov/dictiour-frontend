@@ -9,6 +9,7 @@ import { apiEndpoint, pageLimit } from '@utils/constants';
 import { Languages } from '@utils/enums';
 import axios from 'axios';
 import { getSession } from 'next-auth/react';
+import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/router';
 import type { GetServerSideProps } from 'next/types';
 import { toast } from 'react-toastify';
@@ -16,18 +17,11 @@ import { toast } from 'react-toastify';
 const UserExamples = () => {
   const router = useRouter();
   const { dictionaryStore } = useRootStore();
-
-  const onItemMouseMove = (item: UserExample) => {
-    dictionaryStore.setSelectedUserExample(item);
-  };
+  const { get } = useSearchParams();
 
   const onAdd = async (item: GlobalWord) => {
     await userDictionary
-      .addUserExample(
-        dictionaryStore.selectedUserWord.word,
-        dictionaryStore.selectedUserMeaning.toWord,
-        item
-      )
+      .addUserExample(get('userMeaningId'), item)
       .then(() => {
         toast('Added', { type: 'success' });
       })
@@ -43,11 +37,7 @@ const UserExamples = () => {
       <Filter filterType='userExamples'>
         <Add onAdd={onAdd} />
       </Filter>
-      <WordList
-        wordKey='exampleWord'
-        items={dictionaryStore.userExamples}
-        onItemMouseMove={onItemMouseMove}
-      />
+      <WordList wordKey='exampleWord' items={dictionaryStore.userExamples} />
     </>
   );
 };

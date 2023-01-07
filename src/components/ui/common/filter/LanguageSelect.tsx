@@ -29,7 +29,7 @@ const LanguageSelect = ({ filterType }: { filterType: FilterTypes }) => {
         variant={'outline'}
         rightIcon={<HiChevronDown />}
       >
-        Language
+        {Languages[filterStore.language[filterType]] || 'All'}
       </MenuButton>
       <MenuList>
         <MenuItem
@@ -48,7 +48,7 @@ const LanguageSelect = ({ filterType }: { filterType: FilterTypes }) => {
             pushToLanguage();
           }}
         >
-          Turkish
+          TR
         </MenuItem>
         <MenuItem
           onClick={() => {
@@ -57,7 +57,7 @@ const LanguageSelect = ({ filterType }: { filterType: FilterTypes }) => {
             pushToLanguage();
           }}
         >
-          English
+          EN
         </MenuItem>
       </MenuList>
     </Menu>

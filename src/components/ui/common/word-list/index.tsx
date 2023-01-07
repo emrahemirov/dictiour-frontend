@@ -8,8 +8,7 @@ import { observer } from 'mobx-react-lite';
 const WordList = ({
   wordKey,
   items,
-  listItemChildren,
-  onItemMouseMove
+  listItemChildren
 }: {
   wordKey: 'word' | 'toWord' | 'exampleWord' | 'globalWord';
   items:
@@ -17,8 +16,9 @@ const WordList = ({
     | Array<UserMeaning>
     | Array<UserExample>
     | Array<GlobalWord>;
-  listItemChildren?: ReactNode;
-  onItemMouseMove: (item: any) => void;
+  listItemChildren?:
+    | ReactNode
+    | ((item: GlobalWord | UserWord | UserMeaning | UserExample) => ReactNode);
 }) => {
   if (!items || items.length === 0) return <NoData />;
 
@@ -26,12 +26,7 @@ const WordList = ({
     <Flex my={8} gap={4} flexWrap={'wrap'} justify={'center'} align={'center'}>
       {items.map((item, index) => {
         return (
-          <WordItem
-            key={index}
-            wordKey={wordKey}
-            onItemMouseMove={onItemMouseMove}
-            item={item}
-          >
+          <WordItem key={index} wordKey={wordKey} item={item}>
             {listItemChildren}
           </WordItem>
         );

@@ -32,11 +32,11 @@ export default NextAuth({
   ],
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
-    jwt: async ({ token, user }) => {
+    async jwt({ token, user }) {
       user && (token.user = user);
       return token;
     },
-    session: async ({ session, token }) => {
+    async session({ session, token }) {
       session.user = token.user;
       return session;
     }

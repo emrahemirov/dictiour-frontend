@@ -22,10 +22,6 @@ const UserWords = () => {
   const pathname = usePathname();
   const { dictionaryStore } = useRootStore();
 
-  const onItemMouseMove = (item: UserWord) => {
-    dictionaryStore.setSelectedUserWord(item);
-  };
-
   const onAdd = async (item: GlobalWord) => {
     await userDictionary
       .addUserWord(item)
@@ -48,12 +44,11 @@ const UserWords = () => {
       <WordList
         wordKey='word'
         items={dictionaryStore.userWords}
-        onItemMouseMove={onItemMouseMove}
-        listItemChildren={
+        listItemChildren={(item: UserWord) => (
           <IconButton
             onClick={() => {
               router.push({
-                pathname: `${pathname}/${dictionaryStore.selectedUserWord.id}/user-meanings`,
+                pathname: `${pathname}/${item.id}/user-meanings`,
                 query: router.query
               });
             }}
@@ -62,7 +57,7 @@ const UserWords = () => {
             fontSize={'lg'}
             icon={<HiChevronRight />}
           />
-        }
+        )}
       />
     </>
   );

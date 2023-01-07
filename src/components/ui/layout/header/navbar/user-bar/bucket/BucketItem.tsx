@@ -6,14 +6,11 @@ import { observer } from 'mobx-react-lite';
 import { AiOutlineMinusCircle, AiOutlineDelete } from 'react-icons/ai';
 
 const BucketItem = ({ item }: { item: BucketWord }) => {
-  const { dictionaryStore, bucketStore } = useRootStore();
+  const { bucketStore } = useRootStore();
 
   return (
     <Stack
       borderRadius={6}
-      onMouseMove={() => {
-        dictionaryStore.setSelectedGlobalWord(item.word);
-      }}
       p={2}
       shadow={'md'}
       align={'center'}
@@ -33,7 +30,7 @@ const BucketItem = ({ item }: { item: BucketWord }) => {
         <Button
           colorScheme={'red'}
           onClick={() => {
-            bucketStore.removeBucketWord();
+            bucketStore.removeBucketWord(item.word);
           }}
         >
           <Box color={'white'} as={AiOutlineDelete} />
@@ -41,7 +38,7 @@ const BucketItem = ({ item }: { item: BucketWord }) => {
         <Button
           flex={1}
           onClick={() => {
-            bucketStore.decreaseBucketWord();
+            bucketStore.decreaseBucketWord(item.word);
           }}
         >
           <Box color={'red'} as={AiOutlineMinusCircle} />

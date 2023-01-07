@@ -7,7 +7,7 @@ import { GlobalWord } from '@models';
 import { queryStringService } from '@services';
 import { RootStoreHydration } from '@stores/root.store';
 import { apiEndpoint, pageLimit } from '@utils/constants';
-import { Languages, UserRoles } from '@utils/enums';
+import { Languages } from '@utils/enums';
 import axios from 'axios';
 import { getSession } from 'next-auth/react';
 import type { GetServerSideProps } from 'next/types';
@@ -15,23 +15,18 @@ import type { GetServerSideProps } from 'next/types';
 const Home = () => {
   const { dictionaryStore } = useRootStore();
 
-  const onItemMouseMove = (item: GlobalWord) => {
-    dictionaryStore.setSelectedGlobalWord(item);
-  };
-
   return (
     <>
       <Filter filterType='globalWords' />
       <WordList
         wordKey='globalWord'
         items={dictionaryStore.globalWords}
-        onItemMouseMove={onItemMouseMove}
-        listItemChildren={
+        listItemChildren={(item: GlobalWord) => (
           <>
-            <AddToBucket />
-            <ReportWord />
+            <AddToBucket item={item} />
+            <ReportWord item={item} />
           </>
-        }
+        )}
       />
     </>
   );

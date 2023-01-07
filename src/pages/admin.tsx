@@ -14,10 +14,6 @@ import type { GetServerSideProps } from 'next/types';
 const Admin = () => {
   const { dictionaryStore } = useRootStore();
 
-  const onItemMouseMove = (item: ReportedWord) => {
-    dictionaryStore.setSelectedReportedWord(item);
-  };
-
   return (
     <>
       <Flex>
@@ -26,8 +22,9 @@ const Admin = () => {
       <WordList
         wordKey='word'
         items={dictionaryStore.reportedWords}
-        onItemMouseMove={onItemMouseMove}
-        listItemChildren={<EvaluateReport />}
+        listItemChildren={(item: ReportedWord) => (
+          <EvaluateReport item={item} />
+        )}
       />
     </>
   );

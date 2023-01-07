@@ -1,3 +1,4 @@
+import { GlobalWord } from '@models';
 import { BucketWord } from '@utils/types';
 import { makeAutoObservable } from 'mobx';
 import { RootStore } from './root.store';
@@ -13,37 +14,29 @@ export class BucketStore {
     makeAutoObservable(this);
   }
 
-  increaseBucketWord() {
-    const selectedGlobalWord = this.root.dictionaryStore.selectedGlobalWord;
-
-    const isWordExist = Object.keys(this.bucketWords).includes(
-      selectedGlobalWord.id
-    );
+  addBucketWord(item: GlobalWord) {
+    const isWordExist = Object.keys(this.bucketWords).includes(item.id);
     if (isWordExist) {
-      this.bucketWords[selectedGlobalWord.id].count++;
+      this.bucketWords[item.id].count++;
       return;
     }
 
-    this.bucketWords[selectedGlobalWord.id] = {
-      word: selectedGlobalWord,
+    this.bucketWords[item.id] = {
+      word: item,
       count: 1
     };
   }
 
-  decreaseBucketWord() {
-    const selectedGlobalWord = this.root.dictionaryStore.selectedGlobalWord;
+  decreaseBucketWord(item: GlobalWord) {
+    this.bucketWords[item.id].count--;
 
-    this.bucketWords[selectedGlobalWord.id].count--;
-
-    if (this.bucketWords[selectedGlobalWord.id].count === 0) {
-      delete this.bucketWords[selectedGlobalWord.id];
+    if (this.bucketWords[item.id].count === 0) {
+      delete this.bucketWords[item.id];
     }
   }
 
-  removeBucketWord() {
-    const selectedGlobalWord = this.root.dictionaryStore.selectedGlobalWord;
-
-    delete this.bucketWords[selectedGlobalWord.id];
+  removeBucketWord(item: GlobalWord) {
+    delete this.bucketWords[item.id];
   }
 
   hydrate(data?: BucketHydration) {}

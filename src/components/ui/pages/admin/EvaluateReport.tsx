@@ -3,16 +3,14 @@ import { TiTick } from 'react-icons/ti';
 import { AiOutlineClose } from 'react-icons/ai';
 import { reportService } from '@services';
 import { ReportedWord } from '@models';
-import { useRootStore } from '@components/providers';
 import { useRouter } from 'next/router';
 
-const EvaluateReport = () => {
-  const { dictionaryStore } = useRootStore();
+const EvaluateReport = ({ item }: { item: ReportedWord }) => {
   const router = useRouter();
 
   const handleEvaluation = (isApproved: boolean) => {
     reportService.evaluateReport({
-      reportId: dictionaryStore.selectedReportedWord.id,
+      reportId: item.id,
       isApproved
     });
 

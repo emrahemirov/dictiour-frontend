@@ -6,22 +6,19 @@ import { Languages } from '@utils/enums';
 
 const WordItem = ({
   wordKey,
-  onItemMouseMove,
   item,
   children
 }: {
   wordKey: 'word' | 'toWord' | 'exampleWord' | 'globalWord';
-  onItemMouseMove: (item: any) => void;
   item: GlobalWord | UserWord | UserMeaning | UserExample;
-  children?: ReactNode;
+  children?:
+    | ReactNode
+    | ((item: GlobalWord | UserWord | UserMeaning | UserExample) => ReactNode);
 }) => {
   const wordToRender = wordKey === 'globalWord' ? item : item[wordKey];
 
   return (
     <Flex
-      onMouseMove={() => {
-        onItemMouseMove(item);
-      }}
       w={{ base: 'full', md: '45%' }}
       flexDirection={{ base: 'column', md: 'row' }}
       p={2}
@@ -41,7 +38,7 @@ const WordItem = ({
       </Flex>
       <Flex justify={'center'} gap={2}>
         <WordDetail item={wordToRender} />
-        {children}
+        {typeof children === 'function' ? children(item) : children}
       </Flex>
     </Flex>
   );
